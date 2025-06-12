@@ -9,33 +9,48 @@ import {
   removeLastLetterFromCurrentAttempt,
   submitAttempt,
   setCurrentWord,
+  setStatus,
+  acknowledgeReset,
+  markInvalidAttempt,
+  clearInvalidAttempt,
 } from '../store/game/gameSlice'
 
 import { useEffect } from 'react'
 import palabras from '../data/palabras.json'
 
 import GameHeader from '../components/GameHeader'
-import GameStatus from '../components/GameStatus'
 import WordGrid from '../components/WordGrid'
+import GameStatus from '../components/GameStatus'
 import Keyboard from '../components/Keyboard'
 import RestartButton from '../components/RestartButton'
+import Puntaje from '../components/Puntaje'
 
 export default function Game() {
   const dispatch = useDispatch()
   const status = useSelector(selectStatus)
   const attempts = useSelector(selectAttempts)
   const currentAttempt = useSelector(selectCurrentAttempt)
+  const shouldReset = useSelector((state) => state.game.shouldReset)
 
   useEffect(() => {
-    if (status === 'playing') {
+    if (status === 'playing' || shouldReset || status === 'idle') {
       const palabraAleatoria =
         palabras[Math.floor(Math.random() * palabras.length)].toUpperCase()
       dispatch(setCurrentWord(palabraAleatoria))
+      dispatch(setStatus('playing'))
+      if (shouldReset) dispatch(acknowledgeReset())
     }
-  }, [status, dispatch])
+  }, [status, shouldReset, dispatch])
 
   const handleKeyPress = (key) => {
     if (key === 'ENTER') {
+      if (currentAttempt.length < 5) {
+        dispatch(markInvalidAttempt())
+        setTimeout(() => {
+          dispatch(clearInvalidAttempt())
+        }, 500)
+        return
+      }
       dispatch(submitAttempt())
     } else if (key === '←') {
       dispatch(removeLastLetterFromCurrentAttempt())
@@ -45,25 +60,22 @@ export default function Game() {
   }
 
   return (
-    <main className="min-h-screen bg-gray-900 text-purple-300 p-4 flex flex-col items-center">
-      {/* Header */}
+    <>
       <GameHeader />
 
-      {/* Grilla */}
       <WordGrid attempts={attempts} currentAttempt={currentAttempt} />
 
-      {/* Estado del juego */}
       <div className="mb-4 text-xl font-semibold">
         <GameStatus />
+        <Puntaje
+          palabra={useSelector((state) => state.game.currentWord)}
+          intento={attempts.length}
+          status={status}
+        />
       </div>
 
-      {/* Botón para reiniciar partida */}
+      <Keyboard onKeyPress={handleKeyPress} disabled={status !== 'playing'} />
       <RestartButton />
-
-      {/* Estado del juego */}
-
-      {/* Teclado */}
-      <Keyboard onKeyPress={handleKeyPress} />
-    </main>
+    </>
   )
 }

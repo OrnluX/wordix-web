@@ -1,7 +1,10 @@
 export default function GameHeader() {
   return (
-    <header className="text-center mb-6">
-      <h1 className="text-4xl font-bold mb-2">Wordix Web</h1>
-    </header>
+    <div className="text-center mb-6">
+      <p className="text-purple-300 text-sm sm:text-base">
+        ⌨️ Escribí una palabra de 5 letras y presioná{' '}
+        <strong className="text-gray-200">↵ ENTER</strong>
+      </p>
+    </div>
   )
 }

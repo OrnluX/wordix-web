@@ -11,7 +11,7 @@ export default function RestartButton() {
   return (
     <button
       onClick={handleClick}
-      className="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded mb-6"
+      className="bg-gradient-to-r from-purple-500 via-fuchsia-500 to-cyan-400 text-gray-100 font-semibold py-3 px-6 rounded text-lg shadow-md hover:brightness-110 transition duration-300"
     >
       Reiniciar partida
     </button>
