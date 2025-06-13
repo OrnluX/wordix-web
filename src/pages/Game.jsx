@@ -17,6 +17,7 @@ import {
 
 import { useEffect } from 'react'
 import palabras from '../data/palabras.json'
+import confetti from 'canvas-confetti'
 
 import GameHeader from '../components/GameHeader'
 import WordGrid from '../components/WordGrid'
@@ -41,6 +42,16 @@ export default function Game() {
       if (shouldReset) dispatch(acknowledgeReset())
     }
   }, [status, shouldReset, dispatch])
+
+  useEffect(() => {
+    if (status === 'won') {
+      confetti({
+        particleCount: 150,
+        spread: 90,
+        origin: { y: 0.4 },
+      })
+    }
+  }, [status])
 
   const handleKeyPress = (key) => {
     if (key === 'ENTER') {
