@@ -2,7 +2,7 @@ import { useDispatch } from 'react-redux'
 import { setStatus } from '../store/game/gameSlice'
 import { useNavigate } from 'react-router-dom'
 
-import Footer from '../components/layout/Footer'
+import imagen3D from '../assets/wordix-3d.webp'
 
 export default function Welcome() {
   const dispatch = useDispatch()
@@ -17,7 +17,7 @@ export default function Welcome() {
     <>
       <div className="w-[280px] sm:w-[400px] aspect-square mb-8 drop-shadow-xl rounded overflow-hidden">
         <img
-          src="/wordix-3d.webp"
+          src={imagen3D}
           alt="Grilla isométrica 3D"
           className="w-full h-full object-cover rounded-xl shadow-lg hover:scale-105 transition-transform duration-300"
         />
