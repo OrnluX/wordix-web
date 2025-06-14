@@ -27,7 +27,7 @@ export default function WordGrid({ attempts, currentAttempt }) {
               ? 'bg-green-600 text-white border-green-600'
               : colores[j] === 'yellow'
               ? 'bg-yellow-500 text-white border-yellow-500'
-              : colores[j] === 'gray'
+              : colores[j] === 'red'
               ? 'bg-red-800 text-white border-gray-700'
               : 'border-purple-500'
 

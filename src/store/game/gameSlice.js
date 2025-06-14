@@ -1,12 +1,13 @@
 import { createSlice } from '@reduxjs/toolkit'
+import { evaluarIntento } from '../../utils/verificador'
 
 const initialState = {
-  currentWord: '', // Palabra a adivinar
-  attempts: [], // Palabras que intentó el jugador
-  keyboard: {}, // Estado de las letras (ej: { A: 'green', B: 'gray' })
-  status: 'idle', // 'idle' | 'playing' | 'won' | 'lost'
+  currentWord: '',
+  attempts: [],
+  keyboard: {},
+  status: 'idle',
   currentAttempt: '',
-  shouldReset: false, // Indica si se debe reiniciar el juego
+  shouldReset: false,
   invalidAttempt: false,
 }
 
@@ -51,39 +52,26 @@ const gameSlice = createSlice({
     acknowledgeReset: (state) => {
       state.shouldReset = false
     },
+    markInvalidAttempt: (state) => {
+      state.invalidAttempt = true
+    },
+    clearInvalidAttempt: (state) => {
+      state.invalidAttempt = false
+    },
     submitAttempt: (state) => {
       if (state.currentAttempt.length === 5) {
         const intento = state.currentAttempt.toUpperCase()
         const palabra = state.currentWord.toUpperCase()
-        const nuevoEstadoTeclado = { ...state.keyboard }
 
-        for (let i = 0; i < intento.length; i++) {
-          const letra = intento[i]
+        const resultado = evaluarIntento(intento, palabra, state.keyboard)
 
-          if (palabra[i] === letra) {
-            nuevoEstadoTeclado[letra] = 'green'
-          } else if (palabra.includes(letra)) {
-            if (nuevoEstadoTeclado[letra] !== 'green') {
-              nuevoEstadoTeclado[letra] = 'yellow'
-            }
-          } else {
-            if (!nuevoEstadoTeclado[letra]) {
-              nuevoEstadoTeclado[letra] = 'gray'
-            }
-          }
-        }
-
-        state.keyboard = nuevoEstadoTeclado
-
-        const colores = intento.split('').map((letra, i) => {
-          if (palabra[i] === letra) return 'green'
-          if (palabra.includes(letra)) return 'yellow'
-          return 'gray'
+        state.keyboard = resultado.nuevoEstadoTeclado
+        state.attempts.push({
+          palabra: resultado.palabra,
+          colores: resultado.colores,
         })
 
-        state.attempts.push({ palabra: intento, colores })
-
-        if (intento === palabra) {
+        if (resultado.ganaste) {
           state.status = 'won'
         } else if (state.attempts.length >= 6) {
           state.status = 'lost'
@@ -91,12 +79,6 @@ const gameSlice = createSlice({
 
         state.currentAttempt = ''
       }
-    },
-    markInvalidAttempt: (state) => {
-      state.invalidAttempt = true
-    },
-    clearInvalidAttempt: (state) => {
-      state.invalidAttempt = false
     },
   },
 })

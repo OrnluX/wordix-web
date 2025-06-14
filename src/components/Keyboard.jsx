@@ -19,7 +19,7 @@ export default function Keyboard({ onKeyPress, disabled = false }) {
         return 'bg-green-600 text-white'
       case 'yellow':
         return 'bg-yellow-500 text-white'
-      case 'gray':
+      case 'red':
         return 'bg-red-800 text-white'
       default:
         return 'bg-gray-800 text-purple-300'
