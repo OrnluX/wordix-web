@@ -21,10 +21,8 @@ import confetti from 'canvas-confetti'
 
 import GameHeader from '../components/GameHeader'
 import WordGrid from '../components/WordGrid'
-import GameStatus from '../components/GameStatus'
 import Keyboard from '../components/Keyboard'
-import RestartButton from '../components/RestartButton'
-import Puntaje from '../components/Puntaje'
+import ResultadoModal from '../components/ResultadoModal'
 
 export default function Game() {
   const dispatch = useDispatch()
@@ -76,17 +74,9 @@ export default function Game() {
 
       <WordGrid attempts={attempts} currentAttempt={currentAttempt} />
 
-      <div className="mb-4 text-xl font-semibold">
-        <GameStatus />
-        <Puntaje
-          palabra={useSelector((state) => state.game.currentWord)}
-          intento={attempts.length}
-          status={status}
-        />
-      </div>
-
       <Keyboard onKeyPress={handleKeyPress} disabled={status !== 'playing'} />
-      <RestartButton />
+
+      <ResultadoModal />
     </>
   )
 }

@@ -36,10 +36,17 @@ export default function WordGrid({ attempts, currentAttempt }) {
               ? 'animate-shake border-red-500'
               : ''
 
+          const delay = i < attempts.length ? `delay-[${j * 100}ms]` : ''
+
+          const animReveal =
+            i < attempts.length ? `animate-[reveal_0.3s_ease-out_forwards]` : ''
+
           return (
             <div
               key={j}
-              className={`w-12 h-12 border-2 text-center text-xl flex items-center justify-center rounded transition ${color} ${animacion}`}
+              className={`w-12 h-12 border-2 text-center text-xl flex items-center justify-center rounded 
+                transition duration-500
+                ${color} ${animacion} ${animReveal} ${delay}`}
             >
               {letra || '_'}
             </div>

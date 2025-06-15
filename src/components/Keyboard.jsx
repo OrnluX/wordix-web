@@ -49,13 +49,19 @@ export default function Keyboard({ onKeyPress, disabled = false }) {
                 tecla
               )
 
+            // ✅ Clave dinámica para forzar re-render + animación única
+            const estado = keyboard[tecla] || 'default'
+            const animacionEstado = keyboard[tecla] ? 'animate-rebotar' : ''
+
             return (
               <button
-                key={tecla}
+                key={`${tecla}-${estado}`}
                 onClick={() => !disabled && onKeyPress(tecla)}
-                className={`w-full max-w-[42px] sm:max-w-none sm:flex-1 h-12 sm:h-14 text-base sm:text-lg font-bold rounded ${claseColor} transform transition-transform duration-150 ease-in-out hover:scale-105 active:scale-95 ${
-                  disabled ? 'opacity-40 cursor-not-allowed' : ''
-                }`}
+                className={`w-full max-w-[42px] sm:max-w-none sm:flex-1 h-12 sm:h-14 text-base sm:text-lg font-bold rounded 
+                  ${claseColor} ${animacionEstado} 
+                  transform transition-transform duration-150 ease-in-out 
+                  hover:scale-105 active:scale-95 
+                  ${disabled ? 'opacity-40 cursor-not-allowed' : ''}`}
                 aria-label={tecla}
               >
                 {contenido}
