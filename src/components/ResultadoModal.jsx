@@ -15,7 +15,7 @@ export default function ResultadoModal() {
 
   const intentoNro = attempts.length
   const textoBoton =
-    status === 'won' ? '🎉 Jugar otra vez' : '🔁 Intentar de nuevo'
+    status === 'won' ? '🔁 Jugar otra vez' : '🔁 Intentar de nuevo'
 
   // Escape para cerrar
   useEffect(() => {
