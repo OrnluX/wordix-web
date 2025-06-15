@@ -45,7 +45,7 @@ export default function ResultadoModal() {
     >
       <div
         ref={modalRef}
-        className="w-full max-w-md mx-4 rounded-lg border border-purple-600 bg-neutral-900 p-6 shadow-xl animate-reveal space-y-4"
+        className="w-full max-w-sm sm:max-w-md mx-4 rounded-lg border border-purple-600 bg-neutral-900 p-6 shadow-xl animate-reveal space-y-4"
       >
         <GameStatus />
         <Puntaje palabra={currentWord} intento={intentoNro} status={status} />
