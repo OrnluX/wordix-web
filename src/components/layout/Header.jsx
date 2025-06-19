@@ -5,7 +5,7 @@ export default function Header() {
         Wordix Argento
       </h1>
       <p className="text-sm sm:text-base text-gray-400 mt-1">
-        "Desarrollado en Neuquén, para el mundo (?"
+        "Desarrollado en Neuquén, para el mundo 🇦🇷"
       </p>
     </header>
   )

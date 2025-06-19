@@ -1,16 +1,26 @@
-import { useDispatch } from 'react-redux'
-import { setStatus } from '../store/game/gameSlice'
+import { useSelector, useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
+import { setStatus } from '../store/game/gameSlice'
+import { useState } from 'react'
+
+import { selectNombreJugador } from '../store/stats/selectors.js'
 
 import imagen3D from '../assets/wordix-3d.webp'
+import NombreModal from '../components/NombreModal'
 
 export default function Welcome() {
   const dispatch = useDispatch()
   const navigate = useNavigate()
+  const nombreJugador = useSelector(selectNombreJugador)
+  const [mostrarModal, setMostrarModal] = useState(false)
 
   const comenzarJuego = () => {
-    dispatch(setStatus('playing'))
-    navigate('/jugar')
+    if (!nombreJugador) {
+      setMostrarModal(true)
+    } else {
+      dispatch(setStatus('playing'))
+      navigate('/jugar')
+    }
   }
 
   return (
@@ -27,8 +37,7 @@ export default function Welcome() {
         Adiviná la palabra en 6 intentos. Cada intento debe ser una palabra
         válida de 5 letras. Después de cada intento, el color de las letras
         cambiará para mostrar qué tan cerca estás. El juego se encuentra
-        inspirado en el clásico Wordle y actualmente está en desarrollo, así que
-        no te hagas el piola.
+        inspirado en el clásico Wordle y actualmente está en desarrollo.
       </p>
 
       <p className="max-w-xl text-md text-gray-400 mb-6 hyphens-auto">
@@ -43,6 +52,7 @@ export default function Welcome() {
       >
         ¡Comenzar partida!
       </button>
+      {mostrarModal && <NombreModal onClose={() => setMostrarModal(false)} />}
     </>
   )
 }
