@@ -8,7 +8,7 @@ export default function Layout() {
 
   useEffect(() => {
     window.scrollTo({ top: 0, left: 0, behavior: 'smooth' })
-  }, [location.hash])
+  }, [location])
 
   return (
     <div className="py-6 min-h-screen bg-gray-900 flex flex-col">
