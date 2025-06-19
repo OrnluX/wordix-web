@@ -21,7 +21,7 @@ Incluye un modal para que el jugador ingrese su nombre, persistencia de estado c
 
 | Pantalla de bienvenida | Pantalla de juego |
 |------------------------|-------------------|
-| ![Welcome](./src/assets/screenshot2.png) | ![Game](./src/assets/screenshot1.png) |
+| ![Welcome](./src/assets/screenshot2.PNG) | ![Game](./src/assets/screenshot1.PNG) |
 
 ---
 
