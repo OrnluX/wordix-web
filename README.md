@@ -7,7 +7,10 @@
 ![License](https://img.shields.io/badge/license-MIT-green)
 
 ---
+🚀 **Sitio desplegado:**  
+👉 [https://ornlux.github.io/wordix-web/](https://ornlux.github.io/wordix-web/)
 
+---
 ## 🧩 Descripción
 
 **Wordix Web** es un juego web inspirado en el clásico Wordle. Desarrollado con React + Redux, permite adivinar palabras en 6 intentos, ofrece puntajes dinámicos basados en dificultad y muestra animaciones al ganar o perder.  
